@@ -36,8 +36,10 @@ const targetArticle = document.querySelector(articleSelector);
   /* add class 'active' to the correct article */
 targetArticle.classList.add('active');
 
+
+}
+
 const links = document.querySelectorAll('.titles a');
   for(let link of links){
     link.addEventListener('click', titleClickHandler);
-}
 }
