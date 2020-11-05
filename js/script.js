@@ -7,7 +7,8 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.authors';
 
 const titleClickHandler = function (event) {
   event.preventDefault();
@@ -76,6 +77,7 @@ for (let link of links) {
 }
 
 function calculateTagsParams(tags) {
+  console.log('tags', tags); 
 
   const params = { max: 0, min: 999999 };
 
@@ -95,7 +97,15 @@ function calculateTagsParams(tags) {
 
 function calculateTagClass(count, params) {
 
+  const normalizedCount = count - params.min; 
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1);
+
+  return optCloudClassPrefix + classNumber; 
+
 }
+
 
 function generateTags() {
 
@@ -155,7 +165,7 @@ function generateTags() {
   /* 7.3 */
   // console.log('tagsParams:', tagsParams);
   const tagsParams = calculateTagsParams(allTags);
-  // console.log('tagsParams:', tagsParams);
+  console.log('tagsParams:', tagsParams);
   
   /* [NEW] 7.3 create variable for all links HTML code */
   let allTagsHTML = '';
@@ -164,7 +174,7 @@ function generateTags() {
   for (let tag in allTags) {
 
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    const taglinkHTML = '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
+    const tagLinkHTML = '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
 	
     /* allTagsHTML += tagLinkHTML; */
     allTagsHTML += tagLinkHTML;
@@ -244,8 +254,20 @@ function generateAuthors() {
   /* START LOOP: for every article */
   for (let article of articles) {
 
+    /* find authors wrapper */
+    const authorsWrapper = article.querySelector(optArticleAuthorSelector);
+    authorsWrapper.innerHTML = '';
+	
     /* make html variable with empty string */
     let html = '';
+
+    /* generate HTML of the link */
+    const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
+	
+    /* [DONE] add generated code to html variable */
+	
+    /* [DONE] insert HTML of all the authors into the tags wrapper */
+    authorsWrapper.innerHTML = html;
 
     /* get author name from data-author atribute */
     const articleAuthor = article.getAttribute('data-author');
@@ -295,10 +317,7 @@ function authorClickHandler(event) {
 
   /* execute function "generateTitleLinks" with article selector as argument */
   generateTitleLinks('[data-author="' + author + '"]');
-
 }
-
-authorClickHandler();
 
 function addClickListenersToAuthors() {
 
