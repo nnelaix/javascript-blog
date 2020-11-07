@@ -1,7 +1,6 @@
 'use strict'; 
 
-
-const opts = {
+const opt = {
   articleSelector: '.post',
   titleSelector: '.post-title',
   titleListSelector: '.titles',
@@ -15,30 +14,30 @@ const opts = {
 };
 
 const opts = {
-	tagSizes: {
-	  count: 5,
-	  classPrefix: 'tag-size-',
-	},
-  };
+  tagSizes: {
+    count: 5,
+    classPrefix: 'tag-size-',
+  },
+};
   
-  const select = {
-	all: {
-	  articles: '.post',
-	  linksTo: {
-		tags: 'a[href^="#tag-"]',
-		authors: 'a[href^="#author-"]',
-	  },
-	},
-	article: {
-	  tags: '.post-tags .list',
-	  author: '.post-author',
-	},
-	listOf: {
-	  titles: '.titles',
-	  tags: '.tags.list',
-	  authors: '.authors.list',
-	},
-  };
+const select = {
+  all: {
+    articles: '.post',
+    linksTo: {
+      tags: 'a[href^="#tag-"]',
+      authors: 'a[href^="#author-"]',
+    },
+  },
+  article: {
+    tags: '.post-tags .list',
+    author: '.post-author',
+  },
+  listOf: {
+    titles: '.titles',
+    tags: '.tags.list',
+    authors: '.authors.list',
+  },
+};
 
 const titleClickHandler = function (event) {
   event.preventDefault();
@@ -75,7 +74,7 @@ const titleClickHandler = function (event) {
 function generateTitleLinks(customSelector = '') {
 
   /* [DONE] remove contents of titleList */
-  const titleList = document.querySelector(opt.TitleListSelector);
+  const titleList = document.querySelector(opt.titleListSelector);
   titleList.innerHTML = '';
 
   /* [DONE] for each article */
@@ -88,7 +87,7 @@ function generateTitleLinks(customSelector = '') {
     const articleId = article.getAttribute('id');
 
     /* [DONE] find the title element */
-    const articleTitle = article.querySelector(opt.TitleSelector).innerHTML;
+    const articleTitle = article.querySelector(opt.titleSelector).innerHTML;
 
     /* [DONE] create HTML of the link */
     const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
@@ -190,7 +189,7 @@ function generateTags() {
   }
   
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(opt.TagsListSelector);
+  const tagList = document.querySelector(opt.tagsListSelector);
   
   /* 7.3 */
   // console.log('tagsParams:', tagsParams);
@@ -285,7 +284,7 @@ function generateAuthors() {
   for (let article of articles) {
 
     /* find authors wrapper */
-    const authorsWrapper = article.querySelector(opt.ArticleAuthorSelector);
+    const authorsWrapper = article.querySelector(opt.articleAuthorSelector);
     authorsWrapper.innerHTML = '';
 	
     /* make html variable with empty string */
