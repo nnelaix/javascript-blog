@@ -17,7 +17,6 @@ const opt = {
   cloudClassCount: 5,
   cloudClassPrefix: 'tag-size-',
   authorsListSelector: '.authors'
-
 };
 
 const opts = {
@@ -36,6 +35,7 @@ const select = {
     },
   },
   article: {
+    title: '.post-title',
     tags: '.post-tags .list',
     author: '.post-author',
   },
