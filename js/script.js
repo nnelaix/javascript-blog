@@ -49,7 +49,7 @@ const select = {
 const titleClickHandler = function (event) {
   event.preventDefault();
   const clickedElement = this;
-  console.log(event);
+  // console.log(event);
 
   /* [DONE] remove class 'active' from all article links  */
 
@@ -103,15 +103,15 @@ function generateTitleLinks(customSelector = '') {
     /* [DONE] insert link into titleList */
     titleList.innerHTML = titleList.innerHTML + linkHTML;
   }
+  const links = document.querySelectorAll('.titles a');
+
+  for (let link of links) {
+    link.addEventListener('click', titleClickHandler);
+  }
 }
 
 generateTitleLinks();
 
-const links = document.querySelectorAll('.titles a');
-
-for (let link of links) {
-  link.addEventListener('click', titleClickHandler);
-}
 
 function calculateTagsParams(tags) {
   console.log('tags', tags); 
@@ -174,7 +174,8 @@ function generateTags() {
     for (let tag of articleTagsArray) {
   
       /* [DONE] generate HTML of the link */
-      const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
+      const linkHTMLData = {id: tag, title: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
   
       /* [DONE] add generated code to html variable */
       html = html + linkHTML;
@@ -225,7 +226,7 @@ function generateTags() {
   
   /*[NEW] add HTML from allTagsHTML to tagList */
   tagList.innerHTML = templates.tagCloudLink(allTagsData);
-  console.log('all tags', allTagsData);
+  // console.log('all tags', allTagsData);
 }  
 
 generateTags();
@@ -289,7 +290,6 @@ addClickListenersToTags();
 /* add generate authors */
 
 function generateAuthors() {
-
   /* find all authors */
   const articles = document.querySelectorAll(opt.articleSelector);
 
@@ -304,7 +304,9 @@ function generateAuthors() {
     const articleAuthor = article.getAttribute('data-author');
 	
     /* generate HTML of the link */
-    const linkHTML = '<li><a href="#author-' + articleAuthor + '"><span>' + articleAuthor + '</span></a></li>';
+    //const linkHTML = '<li><a href="#author-' + articleAuthor + '"><span>' + articleAuthor + '</span></a></li>';
+    const linkHTMLData = {id: articleAuthor, title: articleAuthor};
+    const linkHTML = templates.authorLink(linkHTMLData);
 	
     /* [DONE] add generated code to html variable */
 	
@@ -369,7 +371,7 @@ function addClickListenersToAuthors() {
     /* add tagClickHandler as event listener for that link */
     author.addEventListener('click', authorClickHandler);
 
-    /* END LOOP: for each link */x
+    /* END LOOP: for each link */
   }
 
 }
