@@ -63,7 +63,7 @@ const titleClickHandler = function (event) {
   clickedElement.classList.add('active');
 
   /* [DONE] remove class 'active' from all articles */
-  const activeArticles = document.querySelectorAll('.post article.active');
+  const activeArticles = document.querySelectorAll('.post.active');
   for (let activeArticle of activeArticles) {
     activeArticle.classList.remove('active');
   }
@@ -139,7 +139,7 @@ function calculateTagClass(count, params) {
   const percentage = normalizedCount / normalizedMax;
   const classNumber = Math.floor( percentage * (opt.CloudClassCount - 1) + 1);
 
-  return opt.CloudClassPrefix + classNumber; 
+  return opt.cloudClassPrefix + classNumber; 
 
 }
 
